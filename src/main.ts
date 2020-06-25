@@ -3,7 +3,7 @@
   // width to the value defined here, but the height will be
   // calculated based on the aspect ratio of the input stream.
 
-  let width = 320;    // We will scale the photo width to this
+  let width = 480;    // We will scale the photo width to this
   let height = 0;     // This will be computed based on the input stream
 
   // |streaming| indicates whether or not we're currently streaming
@@ -39,10 +39,10 @@
           height = width / (4 / 3);
         }
 
-        video.setAttribute("width", width);
-        video.setAttribute("height", height);
-        canvas.setAttribute("width", width);
-        canvas.setAttribute("height", height);
+        // video.setAttribute("width", width);
+        // video.setAttribute("height", height);
+        // canvas.setAttribute("width", width);
+        // canvas.setAttribute("height", height);
         streaming = true;
       }
     }, false);
