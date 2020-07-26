@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/jason-webrtc.iml" filepath="$PROJECT_DIR$/.idea/jason-webrtc.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/learn-webrtc.iml" filepath="$PROJECT_DIR$/.idea/learn-webrtc.iml" />
     </modules>
   </component>
 </project>
