@@ -58,7 +58,7 @@ export const VideoChat = {
       .catch((error) => {
         console.log(error);
         console.log(
-          "Failed to get local webcam video, check webcam privacy settings"
+          "Failed to get local webcam video, check webcam privacy settings",
         );
         // Keep trying to get user media
         setTimeout(VideoChat.requestMediaStream, 1000);
@@ -71,28 +71,6 @@ export const VideoChat = {
     VideoChat.localStream = stream;
     // Add the stream as video's srcObject.
     // Now that we have webcam video sorted, prompt user to share URL
-    Snackbar.show({
-      text: "Here is the join link for your call: " + url,
-      actionText: "Copy Link",
-      width: "750px",
-      pos: "top-center",
-      actionTextColor: "#616161",
-      duration: 500000,
-      backgroundColor: "#16171a",
-      onActionClick: function (element) {
-        // Copy url to clipboard, this is achieved by creating a temporary element,
-        // adding the text we want to that element, selecting it, then deleting it
-        var copyContent = window.location.href;
-        $('<input id="some-element">')
-          .val(copyContent)
-          .appendTo("body")
-          .select();
-        document.execCommand("copy");
-        var toRemove = document.querySelector("#some-element");
-        toRemove.parentNode.removeChild(toRemove);
-        Snackbar.close();
-      },
-    });
     VideoChat.localVideo.srcObject = stream;
     // Now we're ready to join the chat room.
     VideoChat.socket.emit("join", roomHash);
@@ -102,7 +80,7 @@ export const VideoChat = {
     VideoChat.socket.on("ready", VideoChat.readyToCall);
     VideoChat.socket.on(
       "willInitiateCall",
-      () => (VideoChat.willInitiateCall = true)
+      () => (VideoChat.willInitiateCall = true),
     );
   },
 
@@ -170,7 +148,7 @@ export const VideoChat = {
       VideoChat.socket.on("answer", VideoChat.onAnswer);
       VideoChat.socket.on("requestToggleCaptions", () => toggleSendCaptions());
       VideoChat.socket.on("recieveCaptions", (captions) =>
-        recieveCaptions(captions)
+        recieveCaptions(captions),
       );
       // Called when there is a change in connection state
       VideoChat.peerConnection.oniceconnectionstatechange = function (event) {
@@ -203,14 +181,14 @@ export const VideoChat = {
     console.log("onIceCandidate");
     if (event.candidate) {
       console.log(
-        `<<< Received local ICE candidate from STUN/TURN server (${event.candidate.address})`
+        `<<< Received local ICE candidate from STUN/TURN server (${event.candidate.address})`,
       );
       if (VideoChat.connected) {
         console.log(`>>> Sending local ICE candidate (${event.candidate.address})`);
         VideoChat.socket.emit(
           "candidate",
           JSON.stringify(event.candidate),
-          roomHash
+          roomHash,
         );
       } else {
         // If we are not 'connected' to the other peer, we are buffering the local ICE candidates.
@@ -229,7 +207,7 @@ export const VideoChat = {
     captionText.text("Found other user... connecting");
     const rtcCandidate = new RTCIceCandidate(JSON.parse(candidate));
     console.log(
-      `onCandidate <<< Received remote ICE candidate (${rtcCandidate.address} - ${rtcCandidate.relatedAddress})`
+      `onCandidate <<< Received remote ICE candidate (${rtcCandidate.address} - ${rtcCandidate.relatedAddress})`,
     );
     VideoChat.peerConnection.addIceCandidate(rtcCandidate);
   },
@@ -248,7 +226,7 @@ export const VideoChat = {
       function (err) {
         console.log("failed offer creation");
         console.log(err, true);
-      }
+      },
     );
   },
 
@@ -271,7 +249,7 @@ export const VideoChat = {
         function (err) {
           console.log("Failed answer creation.");
           console.log(err, true);
-        }
+        },
       );
     };
   },
@@ -282,7 +260,7 @@ export const VideoChat = {
     console.log("onOffer <<< Received offer");
     VideoChat.socket.on(
       "token",
-      VideoChat.onToken(VideoChat.createAnswer(offer))
+      VideoChat.onToken(VideoChat.createAnswer(offer)),
     );
     VideoChat.socket.emit("token", roomHash);
   },
