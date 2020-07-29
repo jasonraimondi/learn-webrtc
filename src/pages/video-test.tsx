@@ -16,7 +16,17 @@ export default () => {
   }
 
   return <>
-    <Video srcObject={stream} autoPlay={true}>HTML 5 not supported</Video>
+    <style>
+      {`
+      video {
+        width: 200px;
+      }
+      `}
+    </style>
+    <div>
+      <Video id="local-video" srcObject={stream} autoPlay={true} muted={true} style={{ transform: "scaleX(-1)" }}>HTML 5 not supported</Video>
+      <Video id="received-video" srcObject={stream} autoPlay={true}>HTML 5 not supported</Video>
+    </div>
     <Link href="/">
       <a>Home</a>
     </Link>
