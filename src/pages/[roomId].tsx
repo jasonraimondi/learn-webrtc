@@ -16,8 +16,8 @@ const useSocket = (roomId: string) => {
     fetch("/api/socketio").finally(() => {
       const _socket = io(SIGNALING_SERVER_URL);
 
+      getLocalStream()
       bootstrapSocket(_socket);
-
       _socket.emit("join room", roomId);
       setSocket(_socket);
     });
@@ -137,15 +137,14 @@ export default () => {
   return <div>
     <Head>
       <title>Create Next App</title>
-      <link rel="icon" href="/favicon.ico"/>
     </Head>
     <div>
-      <Video srcObject={localStream} />
-      Local Stream
+      <Video srcObject={localStream} autoPlay={true} />
+      <p>Local Stream</p>
     </div>
     <div>
-      <Video srcObject={remoteStream} />
-      Remote Stream
+      <Video srcObject={remoteStream} autoPlay={true} />
+      <p>Remote Stream</p>
     </div>
     <button onClick={() => socket.emit("chat message", "something")}>Send Message</button>
     <Link href="/test">
